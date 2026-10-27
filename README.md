@@ -5,7 +5,7 @@
 ![Streamlit](https://img.shields.io/badge/Streamlit-Dashboard-FF4B4B?logo=streamlit)
 ![CI](https://github.com/marcebusi/qa-data-quality-cryptogamer/actions/workflows/data-quality.yml/badge.svg)
 
-Proyecto 5 del portfolio de QA — **Data Quality Testing** con Python, SQLite, pytest y Streamlit.
+**Data Quality Testing** con Python, SQLite, pytest y Streamlit.
 
 **Aplicación bajo prueba**: [cryptogamer-ecommerce](https://github.com/marcebusi/cryptogamer-ecommerce) — e-commerce gaming (Node.js + Prisma + SQLite).
 
