@@ -1,0 +1,53 @@
+name: Data Quality Tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  data-quality:
+    name: Pytest Data Quality
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Clone cryptogamer-ecommerce (para obtener dev.db)
+        run: |
+          git clone https://github.com/marcebusi/cryptogamer-ecommerce.git app
+          cd app/backend
+          npm ci
+          cp .env.example .env || true
+          npx prisma migrate deploy --schema=./prisma/schema.prisma || true
+          npx prisma db seed || true
+        env:
+          NODE_ENV: test
+          PORT: 3001
+
+      - name: Run data quality tests
+        run: |
+          pytest tests/ \
+            --html=reports/report.html \
+            --self-contained-html \
+            -v
+        env:
+          DB_PATH: app/backend/prisma/dev.db
+
+      - name: Upload test report
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: data-quality-report
+          path: reports/
+          retention-days: 30
