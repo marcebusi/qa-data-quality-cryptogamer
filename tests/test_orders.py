@@ -5,7 +5,7 @@ Valida integridad referencial, montos y estados.
 import pytest
 
 
-VALID_STATUSES = {"PENDING", "CONFIRMED", "PAID", "SHIPPED", "DELIVERED", "CANCELLED"}
+VALID_STATUSES = {"PENDING", "CONFIRMED", "PAID", "SHIPPED", "DELIVERED", "CANCELLED", "COMPLETED"}
 VALID_PAYMENT_METHODS = {"transfer", "mercadopago", "cash", None}
 
 
